@@ -1,1 +1,1 @@
-export default () => `<h1>Category page</h1>`;
+export default () => `<category-component></category-component>`;

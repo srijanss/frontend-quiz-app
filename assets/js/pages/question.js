@@ -1,2 +1,5 @@
 export default (categoryName, questionID) =>
-  `<h1>${categoryName} Question ${questionID} page</h1>`;
+  `<question-component
+    data-category="${categoryName}"
+    data-qid="${questionID}">
+  </question-component>`;

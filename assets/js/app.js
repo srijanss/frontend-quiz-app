@@ -1,24 +1,25 @@
-import { matchRoute } from "./router.js";
+import { CategoryListComponent } from "./components/CategoryList.js";
+import { QuestionComponent } from "./components/Question.js";
+import { ScoreComponent } from "./components/Score.js";
+import render from "./renderer.js";
+
+customElements.define("category-component", CategoryListComponent);
+customElements.define("question-component", QuestionComponent);
+customElements.define("score-component", ScoreComponent);
 
 // get the base URL from the vite.config.js
-const baseURL = import.meta.env.BASE_URL;
-
-function navigateTo(path) {
-  window.history.pushState({}, "", baseURL + path);
-  render();
-}
-
-function render() {
-  const path = window.location.pathname;
-  const pathWithoutBase = path.replace(baseURL, "/");
-  const match = matchRoute(pathWithoutBase);
-  if (match.params) {
-    document.body.innerHTML = match.component(...Object.values(match.params));
-  } else {
-    document.body.innerHTML = match.component();
-  }
-}
 
 window.onpopstate = render;
+// document.addEventListener("click", (event) => {
+//   if (event.target.tagName !== "A") return;
+//   event.preventDefault();
+//   // get only the pathnane from href
+//   const pathname = new URL(event.target.href).pathname;
+//   const state = {
+//     category: event.target.dataset.category,
+//     qid: event.target.dataset.qid,
+//   };
+//   navigateTo(pathname, state);
+// });
 
 render();

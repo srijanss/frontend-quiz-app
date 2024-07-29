@@ -1,1 +1,2 @@
-export default (categoryName) => `<h1>${categoryName} Score  page</h1>`;
+export default (categoryName) =>
+  `<score-component data-category="${categoryName}"></score-component>`;
