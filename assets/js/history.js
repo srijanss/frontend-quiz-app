@@ -11,3 +11,7 @@ export function replaceState(path, state) {
   path = path.includes(store.baseURL) ? path : store.baseURL + path;
   window.history.replaceState(state || {}, "", path);
 }
+
+export function handleHistoryPopState() {
+  window.onpopstate = render;
+}
