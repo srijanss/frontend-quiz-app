@@ -1,5 +1,6 @@
 import store from "../store";
 import { navigateTo, replaceState } from "../history";
+import { escapeHtml, randomizeList } from "../utils";
 
 export class QuestionComponent extends HTMLElement {
   connectedCallback() {
@@ -12,8 +13,8 @@ export class QuestionComponent extends HTMLElement {
         this.rehydrateStore(state);
       }
       this.currentQuestion = state.currentQuestion;
-      this.currentQuestion.options = this.currentQuestion.options.sort(
-        () => Math.random() - 0.5
+      this.currentQuestion.options = randomizeList(
+        this.currentQuestion.options
       );
       this.render();
       this.quizForm = this.querySelector("#quiz-form");
@@ -62,7 +63,7 @@ export class QuestionComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <h1>${this.currentQuestion.question}</h1>
+      <h1>${escapeHtml(this.currentQuestion.question)}</h1>
       <form id="quiz-form">
         <fieldset>
           <legend>Select anser:</legend>
@@ -83,21 +84,12 @@ export class QuestionComponent extends HTMLElement {
             type="radio"
             id="option-${index}"
             name="quiz-answer"
-            value="${this.escapeHtml(option)}"
+            value="${escapeHtml(option)}"
           />
-          <label for="option-${index}">${this.escapeHtml(option)}</label>
+          <label for="option-${index}">${escapeHtml(option)}</label>
         </div>
       `
       )
       .join("");
-  }
-
-  escapeHtml(unsafe) {
-    return unsafe
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
   }
 }

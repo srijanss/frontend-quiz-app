@@ -30,11 +30,8 @@ class Store {
     return this._questions;
   }
 
-  setQuestions(categoryTitle) {
-    const questionsList = this._categories.find(
-      (item) => item.title.toLowerCase() === categoryTitle
-    ).questions;
-    this._questions = questionsList.sort(() => Math.random() - 0.5);
+  set questions(questions) {
+    this._questions = questions;
   }
 
   get currentQuestionIndex() {

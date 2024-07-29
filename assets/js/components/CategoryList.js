@@ -1,5 +1,6 @@
 import store from "../store";
 import { navigateTo } from "../history";
+import { randomizeList } from "../utils";
 
 export class CategoryListComponent extends HTMLElement {
   connectedCallback() {
@@ -11,7 +12,7 @@ export class CategoryListComponent extends HTMLElement {
       item.addEventListener("click", (e) => {
         e.preventDefault();
         store.selectedCategory = item.dataset.title;
-        store.setQuestions(item.dataset.title);
+        this.randomizeQuestions(item.dataset.title);
         const pathname = new URL(e.currentTarget.href).pathname;
         const state = {
           category: item.dataset.title,
@@ -24,6 +25,13 @@ export class CategoryListComponent extends HTMLElement {
         navigateTo(pathname, state);
       });
     });
+  }
+
+  randomizeQuestions(categoryTitle) {
+    const questionsList = this.categories.find(
+      (item) => item.title.toLowerCase() === categoryTitle
+    ).questions;
+    store.questions = randomizeList(questionsList);
   }
 
   render() {
