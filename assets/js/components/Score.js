@@ -1,5 +1,6 @@
 import { navigateTo } from "../history";
 import store from "../store";
+import { getAbsolutePath } from "../utils";
 
 export class ScoreComponent extends HTMLElement {
   connectedCallback() {
@@ -12,7 +13,7 @@ export class ScoreComponent extends HTMLElement {
     this.backButton = this.querySelector(".category");
     this.backButton.addEventListener("click", (e) => {
       e.preventDefault();
-      navigateTo(store.baseURL);
+      navigateTo(getAbsolutePath("home-page"));
     });
   }
   render() {

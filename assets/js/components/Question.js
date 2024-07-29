@@ -1,6 +1,6 @@
 import store from "../store";
 import { navigateTo, replaceState } from "../history";
-import { escapeHtml, randomizeList } from "../utils";
+import { escapeHtml, randomizeList, getAbsolutePath } from "../utils";
 
 export class QuestionComponent extends HTMLElement {
   connectedCallback() {
@@ -42,7 +42,9 @@ export class QuestionComponent extends HTMLElement {
           navigateTo(pathname, newState);
         } else {
           replaceState(window.location.pathname, null);
-          const scorePagePath = `${store.baseURL}${this.category}/score/`;
+          const scorePagePath = getAbsolutePath("score-page", {
+            category: this.category,
+          });
           navigateTo(scorePagePath, {
             category: this.category,
             score: store.score,
@@ -50,7 +52,7 @@ export class QuestionComponent extends HTMLElement {
         }
       });
     } else {
-      navigateTo(`${store.baseURL}`);
+      navigateTo(getAbsolutePath("home-page"));
     }
   }
 

@@ -3,13 +3,13 @@ import QuestionPage from "./pages/question.js";
 import ScorePage from "./pages/score.js";
 
 const routes = {
-  "/": CategoryPage,
-  ":category/question/:id/": QuestionPage,
-  ":category/score/": ScorePage,
+  "/": { component: CategoryPage, name: "home-page" },
+  ":category/question/:id/": { component: QuestionPage, name: "question-page" },
+  ":category/score/": { component: ScorePage, name: "score-page" },
 };
 
 function matchRoute(path) {
-  const matchedRoute = { component: CategoryPage };
+  const matchedRoute = routes["/"].component;
   for (const route in routes) {
     const re = new RegExp(`^${route.replace(/:\w+/g, "([^/]+)")}$`);
     path = path.length > 1 ? path.replace(/^\//, "") : path;
@@ -18,7 +18,7 @@ function matchRoute(path) {
     }
     const match = path.match(re);
     if (match) {
-      matchedRoute.component = routes[route];
+      matchedRoute.component = routes[route].component;
       const params = match.slice(1);
       if (params.length > 0) {
         matchedRoute.params = params;
@@ -29,4 +29,4 @@ function matchRoute(path) {
   return matchedRoute;
 }
 
-export { matchRoute };
+export { routes, matchRoute };

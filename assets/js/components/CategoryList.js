@@ -1,6 +1,6 @@
 import store from "../store";
 import { navigateTo } from "../history";
-import { randomizeList } from "../utils";
+import { getAbsolutePath, randomizeList } from "../utils";
 
 export class CategoryListComponent extends HTMLElement {
   connectedCallback() {
@@ -44,18 +44,23 @@ export class CategoryListComponent extends HTMLElement {
   }
 
   renderCategories() {
-    return this.categories
-      .map(
-        (category) =>
-          `<div>
-            <a class="category" data-title="${category.title.toLowerCase()}" href="/${category.title.toLowerCase()}/question/${
-            store.currentQuestionIndex + 1
-          }/">
-              <img src="${category.icon}" alt="${category.title}" />
-              ${category.title}
-            </a>
-          </div>`
-      )
-      .join("");
+    try {
+      return this.categories
+        .map(
+          (item) =>
+            `<div>
+              <a class="category" data-title="${item.title.toLowerCase()}" href="${getAbsolutePath(
+              "question-page",
+              { category: item.title.toLowerCase(), id: 1 }
+            )}">
+                <img src="${item.icon}" alt="${item.title}" />
+                ${item.title}
+              </a>
+            </div>`
+        )
+        .join("");
+    } catch {
+      navigateTo(getAbsolutePath("home-page"));
+    }
   }
 }
