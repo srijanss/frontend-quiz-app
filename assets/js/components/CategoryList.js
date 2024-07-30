@@ -16,7 +16,7 @@ export class CategoryListComponent extends HTMLElement {
       .map(
         (item) =>
           `<button class="category" data-title="${item.title}">
-            <img src="${item.icon}" alt="${item.title}" />
+            <category-icon data-category="${item.title}"></category-icon>
             ${item.title}
           </button>
           `

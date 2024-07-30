@@ -14,9 +14,7 @@ export class CategoryIcon extends HTMLElement {
       javascript: { icon: JsIcon, class: "js" },
       accessibility: { icon: A11yIcon, class: "a11y" },
     };
-    this.category = store.selectedCategory
-      ? store.selectedCategory.toLowerCase()
-      : "";
+    this.category = this.getCategory();
     this.categoryIcon = this.getCategoryIcon(this.category.toLowerCase());
     store.subscribe((data) => this.update(data));
   }
@@ -24,6 +22,15 @@ export class CategoryIcon extends HTMLElement {
   connectedCallback() {
     this.shadow = this.attachShadow({ mode: "open" });
     this.render();
+  }
+
+  getCategory() {
+    const categoryData = this.getAttribute("data-category");
+    if (categoryData) {
+      return categoryData.toLowerCase();
+    }
+
+    return store.selectedCategory ? store.selectedCategory.toLowerCase() : "";
   }
 
   getCategoryIcon(categoryName) {
