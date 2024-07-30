@@ -1,5 +1,5 @@
 import { routes } from "./router.js";
-import store from "./store.js";
+import store from "./store/store.js";
 
 export function escapeHtml(unsafe) {
   return unsafe
