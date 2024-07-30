@@ -8,6 +8,7 @@ class Store {
     this._questions = [];
     this._currentQuestionIndex = 0;
     this._score = 0;
+    this._observers = [];
   }
 
   get baseURL() {
@@ -24,6 +25,7 @@ class Store {
 
   set selectedCategory(category) {
     this._selectedCategory = category;
+    this.notify({ selectedCategory: category });
   }
 
   get questions() {
@@ -55,6 +57,17 @@ class Store {
     this._questions = [];
     this._currentQuestionIndex = 0;
     this._score = 0;
+    this.notify({ selectedCategory: this._selectedCategory });
+  }
+
+  subscribe(observer) {
+    this._observers.push(observer);
+  }
+
+  notify(data) {
+    for (const observer of this._observers) {
+      observer(data);
+    }
   }
 }
 
