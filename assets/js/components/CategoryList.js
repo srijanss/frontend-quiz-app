@@ -15,7 +15,7 @@ export class CategoryListComponent extends HTMLElement {
     return this.categories
       .map(
         (item) =>
-          `<button class="category" data-title="${item.title.toLowerCase()}">
+          `<button class="category" data-title="${item.title}">
             <img src="${item.icon}" alt="${item.title}" />
             ${item.title}
           </button>
@@ -35,7 +35,8 @@ export class CategoryListComponent extends HTMLElement {
 
   getQuestionsByCategory(category) {
     const questionsList = this.categories.find(
-      (item) => item.title.toLowerCase() === store.selectedCategory
+      (item) =>
+        item.title.toLowerCase() === store.selectedCategory.toLowerCase()
     ).questions;
     return randomizeList(questionsList);
   }
