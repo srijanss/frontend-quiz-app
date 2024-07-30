@@ -1,79 +1,26 @@
-import store from "../store";
-import { navigateTo, replaceState } from "../history";
+import store from "../store/store";
+import { navigateTo, replaceState, navigateByReplace } from "../history";
 import { escapeHtml, randomizeList, getAbsolutePath } from "../utils";
+import StateManager from "../store/state_manager";
 
 export class QuestionComponent extends HTMLElement {
   connectedCallback() {
     this.category = this.getAttribute("data-category");
     this.questionID = this.getAttribute("data-qid");
-    const state = history.state;
-    console.log(state);
-    if (state && Object.keys(state).length > 0) {
+    this.historyState = history.state;
+    if (this.historyState && Object.keys(this.historyState).length > 0) {
       if (store.questions.length === 0) {
-        this.rehydrateStore(state);
+        this.rehydrateStore(this.historyState);
       }
-      this.currentQuestion = state.currentQuestion;
+      this.currentQuestion = this.historyState.currentQuestion;
       this.currentQuestion.options = randomizeList(
         this.currentQuestion.options
       );
       this.render();
-      this.quizForm = this.querySelector("#quiz-form");
-      this.quizForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-        // Add validation
-        if (data["quiz-answer"] === this.currentQuestion.answer) {
-          store.score += 1;
-        }
-        store.currentQuestionIndex += 1;
-        if (store.currentQuestionIndex < store.questions.length) {
-          let pathname = window.location.pathname;
-          pathname = `${pathname.split("/").slice(0, -2).join("/")}/${
-            store.currentQuestionIndex + 1
-          }/`;
-          const newState = state;
-          newState.qid = store.currentQuestionIndex + 1;
-          newState.currentQuestion =
-            store.questions[store.currentQuestionIndex];
-          newState.score = store.score;
-          newState.currentQuestionIndex = store.currentQuestionIndex;
-          replaceState(window.location.pathname, null);
-          navigateTo(pathname, newState);
-        } else {
-          replaceState(window.location.pathname, null);
-          const scorePagePath = getAbsolutePath("score-page", {
-            category: this.category,
-          });
-          navigateTo(scorePagePath, {
-            category: this.category,
-            score: store.score,
-          });
-        }
-      });
+      this.handleFormSubmit();
     } else {
       navigateTo(getAbsolutePath("home-page"));
     }
-  }
-
-  rehydrateStore(state) {
-    store.score = state.score;
-    store.currentQuestionIndex = state.currentQuestionIndex;
-    store.questions = state.questions;
-    store.selectedCategory = state.category;
-  }
-
-  render() {
-    this.innerHTML = `
-      <h1>${escapeHtml(this.currentQuestion.question)}</h1>
-      <form id="quiz-form">
-        <fieldset>
-          <legend>Select anser:</legend>
-          ${this.renderOptions()} 
-        </fieldset>
-        <input type="submit" value="Submit" />
-      </form>
-    `;
   }
 
   renderOptions() {
@@ -93,5 +40,78 @@ export class QuestionComponent extends HTMLElement {
       `
       )
       .join("");
+  }
+
+  render() {
+    this.innerHTML = `
+      <h1>${escapeHtml(this.currentQuestion.question)}</h1>
+      <form id="quiz-form">
+        <fieldset>
+          <legend>Select anser:</legend>
+          ${this.renderOptions()} 
+        </fieldset>
+        <input type="submit" value="Submit" />
+      </form>
+      <button type="button" id="next-btn" hidden>Next Question</button>
+      <p class="error-message" hidden>Please select an answer</p>
+    `;
+  }
+
+  rehydrateStore(state) {
+    store.score = state.score;
+    store.currentQuestionIndex = state.currentQuestionIndex;
+    store.questions = state.questions;
+    store.selectedCategory = state.category;
+  }
+
+  validateForm(data, errorMessageEl) {
+    // Check if data is empty object
+    if (Object.keys(data).length === 0) {
+      errorMessageEl.hidden = false;
+      return false;
+    }
+    return true;
+  }
+
+  handleFormSubmit() {
+    const quizForm = this.querySelector("#quiz-form");
+    const nextBtn = this.querySelector("#next-btn");
+    quizForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector("input[type=submit]");
+      const errorMessageEl = this.querySelector(".error-message");
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+      if (!this.validateForm(data, errorMessageEl)) {
+        return;
+      }
+      errorMessageEl.hidden = true;
+      if (data["quiz-answer"] === this.currentQuestion.answer) {
+        store.score += 1;
+      }
+      store.currentQuestionIndex += 1;
+      submitBtn.hidden = true;
+      nextBtn.hidden = false;
+      this.handleNextButtonClick(nextBtn);
+    });
+  }
+
+  handleNextButtonClick(nextBtn) {
+    nextBtn.addEventListener("click", (e) => {
+      if (store.currentQuestionIndex < store.questions.length) {
+        const pathname = getAbsolutePath("question-page", {
+          category: this.category,
+          id: store.currentQuestionIndex + 1,
+        });
+        const newState = StateManager.getQuestionPageState(store);
+        navigateByReplace(pathname, newState);
+      } else {
+        replaceState(window.location.pathname, null);
+        const scorePagePath = getAbsolutePath("score-page", {
+          category: this.category,
+        });
+        navigateTo(scorePagePath, StateManager.getScorePageState(store));
+      }
+    });
   }
 }
