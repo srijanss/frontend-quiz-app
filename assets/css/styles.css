@@ -12,11 +12,29 @@
   --color-success: #26d782;
   --color-error: #ee5454;
   --color-greyish-blue: #abc1e1;
-  --font-family-regular: Rubik;
+  --color-html-faded: #fff1e9;
+  --color-css-faded: #e0fdef;
+  --color-js-faded: #ebf0ff;
+  --color-a11y-faded: #f6e7ff;
+  --font-family: Rubik;
   --font-family-italic: Rubik Italic;
   --font-size: 16px;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
+  --pattern-background-mobile: url("../images/pattern-background-mobile-light.svg");
+  --background-color: var(--color-light-grey);
+  --foreground-color: var(--color-black);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --style-mode: "dark-mode";
+  }
+}
+.dark-mode {
+  --pattern-background-mobile: url("../images/pattern-background-mobile-dark.svg");
+  --background-color: var(--color-black);
+  --foreground-color: var(--color-white);
 }
 
 *,
@@ -26,10 +44,15 @@
 }
 
 body {
-  font-family: var(--font-family-regular);
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-family);
   font-size: var(--font-size);
   font-variation-settings: "wght" var(--font-weight-regular);
-  color: var(--color-black);
-  background-color: var(--color-white);
+  color: var(--foreground-color);
+  background-color: var(--background-color);
   line-height: 1.5;
+  background-image: var(--pattern-background-mobile);
+  background-repeat: no-repeat;
+  background-size: cover;
 }

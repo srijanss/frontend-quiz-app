@@ -1,0 +1,30 @@
+@import "../../../css/_mixins.css";
+@mixin host-border-box;
+
+.category-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+
+  &.css {
+    background-color: var(--color-css-faded);
+  }
+  &.html {
+    background-color: var(--color-html-faded);
+  }
+  &.js {
+    background-color: var(--color-js-faded);
+  }
+  &.a11y {
+    background-color: var(--color-a11y-faded);
+  }
+
+  & img {
+    max-width: 100%;
+    object-fit: contain;
+  }
+}

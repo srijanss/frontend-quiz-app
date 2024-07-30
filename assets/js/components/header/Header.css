@@ -1,0 +1,23 @@
+@import "../../../css/_mixins.css";
+@mixin host-border-box;
+
+header {
+  border: 1px solid red;
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  align-items: center;
+}
+
+.category-block {
+  display: flex;
+  align-items: center;
+
+  & .category-name {
+    font-variation-settings: "wght" var(--font-weight-medium);
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-left: 1rem;
+  }
+}
