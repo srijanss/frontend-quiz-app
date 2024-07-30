@@ -1,37 +1,27 @@
-import store from "../store";
+import store from "../store/store";
 import { navigateTo } from "../history";
 import { getAbsolutePath, randomizeList } from "../utils";
+import StateManager from "../store/state_manager";
 
 export class CategoryListComponent extends HTMLElement {
   connectedCallback() {
     store.reset();
     this.categories = store.categories;
     this.render();
-    this.categoryElements = this.querySelectorAll(".category");
-    this.categoryElements.forEach((item) => {
-      item.addEventListener("click", (e) => {
-        e.preventDefault();
-        store.selectedCategory = item.dataset.title;
-        this.randomizeQuestions(item.dataset.title);
-        const pathname = new URL(e.currentTarget.href).pathname;
-        const state = {
-          category: item.dataset.title,
-          qid: store.currentQuestionIndex + 1,
-          currentQuestion: store.questions[store.currentQuestionIndex],
-          score: store.score,
-          questions: store.questions,
-          currentQuestionIndex: store.currentQuestionIndex,
-        };
-        navigateTo(pathname, state);
-      });
-    });
+    this.handleCategoryClick();
   }
 
-  randomizeQuestions(categoryTitle) {
-    const questionsList = this.categories.find(
-      (item) => item.title.toLowerCase() === categoryTitle
-    ).questions;
-    store.questions = randomizeList(questionsList);
+  renderCategories() {
+    return this.categories
+      .map(
+        (item) =>
+          `<button class="category" data-title="${item.title.toLowerCase()}">
+            <img src="${item.icon}" alt="${item.title}" />
+            ${item.title}
+          </button>
+          `
+      )
+      .join("");
   }
 
   render() {
@@ -43,24 +33,27 @@ export class CategoryListComponent extends HTMLElement {
     `;
   }
 
-  renderCategories() {
-    try {
-      return this.categories
-        .map(
-          (item) =>
-            `<div>
-              <a class="category" data-title="${item.title.toLowerCase()}" href="${getAbsolutePath(
-              "question-page",
-              { category: item.title.toLowerCase(), id: 1 }
-            )}">
-                <img src="${item.icon}" alt="${item.title}" />
-                ${item.title}
-              </a>
-            </div>`
-        )
-        .join("");
-    } catch {
-      navigateTo(getAbsolutePath("home-page"));
-    }
+  getQuestionsByCategory(category) {
+    const questionsList = this.categories.find(
+      (item) => item.title.toLowerCase() === store.selectedCategory
+    ).questions;
+    return randomizeList(questionsList);
+  }
+
+  handleCategoryClick() {
+    this.categoryElements = this.querySelectorAll(".category");
+    this.categoryElements.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        e.preventDefault();
+        store.selectedCategory = item.dataset.title;
+        store.questions = this.getQuestionsByCategory(store.selectedCategory);
+        const pathname = getAbsolutePath("question-page", {
+          category: store.selectedCategory,
+          id: store.currentQuestionIndex + 1,
+        });
+        const state = StateManager.getQuestionPageState(store);
+        navigateTo(pathname, state);
+      });
+    });
   }
 }
