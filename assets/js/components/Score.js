@@ -1,5 +1,5 @@
 import { navigateTo } from "../history";
-import store from "../store";
+import store from "../store/store";
 import { getAbsolutePath } from "../utils";
 
 export class ScoreComponent extends HTMLElement {
