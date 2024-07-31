@@ -1,9 +1,19 @@
 @import "../../../css/_mixins.css";
 @mixin host-border-box;
 
+:host {
+  --category-icon-size: 2.5rem; /* 40px */
+}
+
+@mixin media-query-tablet {
+  :host {
+    --category-icon-size: 3.5rem; /* 56px */
+  }
+}
+
 .category-icon-wrapper {
-  width: 40px;
-  height: 40px;
+  width: var(--category-icon-size);
+  height: var(--category-icon-size);
   border-radius: 4px;
   display: flex;
   align-items: center;

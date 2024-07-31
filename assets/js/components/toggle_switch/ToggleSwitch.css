@@ -1,6 +1,24 @@
 @import "../../../css/_mixins.css";
 @mixin host-border-box;
 
+:host {
+  --toggle-switch-width: 2rem; /* 32px */
+  --toggle-switch-height: 1.25rem; /* 20px */
+  --toggle-switch-handle-size: 0.75rem; /* 12px */
+  --mode-icon-size: 1.25rem; /* 20px */
+  --gap: 0.5rem;
+}
+
+@mixin media-query-tablet {
+  :host {
+    --toggle-switch-width: 3rem; /* 48px */
+    --toggle-switch-height: 1.75rem; /* 28px */
+    --toggle-switch-handle-size: 1.25rem; /* 20px */
+    --mode-icon-size: 1.5rem; /* 24px */
+    --gap: 1rem;
+  }
+}
+
 input[type="checkbox"] {
   display: none;
 }
@@ -8,12 +26,12 @@ input[type="checkbox"] {
 .toggle-switch-block {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--gap);
 
   & .light-mode-icon,
   & .dark-mode-icon {
-    width: 20px;
-    height: 20px;
+    width: var(--mode-icon-size);
+    height: var(--mode-icon-size);
     display: flex;
     align-items: center;
 
@@ -26,19 +44,21 @@ input[type="checkbox"] {
 
 .toggle-switch {
   position: relative;
-  width: 32px;
-  height: 20px;
+  width: var(--toggle-switch-width);
+  height: var(--toggle-switch-height);
   background-color: var(--color-primary);
-  border-radius: 32px;
+  border-radius: var(--toggle-switch-width);
   cursor: pointer;
 
   &::before {
+    --size: var(--toggle-switch-handle-size);
+    --padding: 4px;
     content: "";
     position: absolute;
-    top: calc(50% - 6px);
-    left: 4px;
-    width: 12px;
-    height: 12px;
+    top: calc(50% - var(--size) / 2);
+    left: var(--padding);
+    width: var(--size);
+    height: var(--size);
     background-color: var(--color-white);
     border-radius: 50%;
     transition: left 0.1s ease-out;
@@ -46,5 +66,5 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked ~ .toggle-switch::before {
-  left: calc(100% - 16px);
+  left: calc(100% - (var(--toggle-switch-handle-size) + var(--padding)));
 }

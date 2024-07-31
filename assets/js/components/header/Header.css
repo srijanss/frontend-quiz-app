@@ -1,11 +1,29 @@
 @import "../../../css/_mixins.css";
 @mixin host-border-box;
 
+:host {
+  --header-height: 4.5rem; /* 72px */
+  --header-width: 100%;
+  --header-padding: 1rem 1.5rem;
+  --category-font-size: 1.125rem;
+  --category-icon-font-gap: 1rem;
+}
+
+@mixin media-query-tablet {
+  :host {
+    --header-height: 3.5rem; /* 56px */
+    --header-padding: 0;
+    --category-font-size: 1.75rem;
+    --category-icon-font-gap: 1.5rem;
+  }
+}
+
 header {
-  height: 72px;
+  width: var(--header-width);
+  height: var(--header-height);
   display: flex;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  padding: var(--header-padding);
   align-items: center;
 }
 
@@ -15,8 +33,8 @@ header {
 
   & .category-name {
     font-variation-settings: "wght" var(--font-weight-medium);
-    font-size: 1.125rem;
+    font-size: var(--category-font-size);
     font-weight: 500;
-    margin-left: 1rem;
+    margin-left: var(--category-icon-font-gap);
   }
 }

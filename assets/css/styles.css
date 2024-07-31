@@ -24,6 +24,7 @@
   --font-weight-medium: 500;
   /* Default to light mode */
   --pattern-background-mobile: url("../images/pattern-background-mobile-light.svg");
+  --pattern-background-tablet: url("../images/pattern-background-tablet-light.svg");
   --background-color: var(--color-light-grey);
   --foreground-color: var(--color-black);
   --foreground-color-secondary: var(--color-grey);
@@ -37,6 +38,7 @@
 }
 .dark-mode {
   --pattern-background-mobile: url("../images/pattern-background-mobile-dark.svg");
+  --pattern-background-tablet: url("../images/pattern-background-tablet-dark.svg");
   --background-color: var(--color-black);
   --foreground-color: var(--color-white);
   --foreground-color-secondary: var(--color-greyish-blue);
@@ -59,6 +61,17 @@ body {
   line-height: 1.5;
   background-image: var(--pattern-background-mobile);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position: top left;
   background-color: var(--background-color);
+
+  @mixin media-query-tablet {
+    --background-image-width: 438px;
+    --background-image-height: 531px;
+
+    padding: 2.5rem 4rem;
+    background-image: var(--pattern-background-tablet);
+    background-size: var(--background-image-width)
+      var(--background-image-height);
+  }
 }
