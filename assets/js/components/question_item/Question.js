@@ -6,9 +6,13 @@ import css from "./Question.css?inline";
 import ErrorIcon from "../../../images/icon-error.svg";
 
 export class QuestionComponent extends HTMLElement {
-  connectedCallback() {
+  constructor() {
+    super();
     this.category = this.getAttribute("data-category");
     this.questionID = this.getAttribute("data-qid");
+  }
+
+  connectedCallback() {
     this.historyState = history.state;
     if (this.historyState && Object.keys(this.historyState).length > 0) {
       if (store.questions.length === 0) {
@@ -18,9 +22,12 @@ export class QuestionComponent extends HTMLElement {
       this.currentQuestion.options = randomizeList(
         this.currentQuestion.options
       );
+      this.shadow = this.attachShadow({ mode: "open" });
       this.render();
-      this.quizForm = this.querySelector("#quiz-form");
-      this.errorMessageBlockEl = this.querySelector(".error-message-block");
+      this.quizForm = this.shadow.querySelector("#quiz-form");
+      this.errorMessageBlockEl = this.shadow.querySelector(
+        ".error-message-block"
+      );
       this.handleOptionClick(this.quizForm, this.errorMessageBlockEl);
       this.handleFormSubmit(this.quizForm, this.errorMessageBlockEl);
     } else {
@@ -47,7 +54,7 @@ export class QuestionComponent extends HTMLElement {
   }
 
   render() {
-    this.innerHTML = `
+    this.shadow.innerHTML = `
     <style>
       ${css}
     </style>
@@ -57,14 +64,14 @@ export class QuestionComponent extends HTMLElement {
       <progress-bar data-max="${store.questions.length}" data-value="${
       this.questionID
     }"></progress-bar>
-      <form id="quiz-form">
+      <form id="quiz-form" name="quiz-form">
         <fieldset>
           <legend>Select anser:</legend>
           ${this.renderOptions()} 
         </fieldset>
-        <input type="submit" class="primary-btn" value="Submit answer" />
+        <button-component id="submit-btn" data-type="submit">Submit answer</button-component>
       </form>
-      <button type="button" class="primary-btn" id="next-btn" hidden>Next Question</button>
+      <button-component id="next-btn" data-type="button" hidden>Next Question</button-component>
       <div class="error-message-block hidden">
         <div class="error-icon-wrapper">
           <img src="${ErrorIcon}" alt="Error Icon" />
@@ -129,7 +136,7 @@ export class QuestionComponent extends HTMLElement {
   }
 
   disableForm(quizForm) {
-    quizForm.querySelector("input[type=submit]").disabled = true;
+    quizForm.querySelector("button-component#submit-btn").disabled = true;
     for (const option of quizForm.querySelectorAll("input[type=radio]")) {
       option.checked = false;
       option.disabled = true;
@@ -158,11 +165,11 @@ export class QuestionComponent extends HTMLElement {
   }
 
   handleFormSubmit(quizForm, errorMessageBlockEl) {
-    const nextBtn = this.querySelector("#next-btn");
-    quizForm.addEventListener("submit", (e) => {
+    const nextBtn = this.shadow.querySelector("button-component#next-btn");
+    const submitBtn = this.shadow.querySelector("button-component#submit-btn");
+    submitBtn.onClick = (e) => {
       e.preventDefault();
-      const submitBtn = e.target.querySelector("input[type=submit]");
-      const formData = new FormData(e.target);
+      const formData = new FormData(quizForm);
       const data = Object.fromEntries(formData.entries());
       if (!this.validateForm(data, errorMessageBlockEl)) {
         return;
@@ -173,11 +180,12 @@ export class QuestionComponent extends HTMLElement {
       submitBtn.hidden = true;
       nextBtn.hidden = false;
       this.handleNextButtonClick(nextBtn);
-    });
+    };
+    return;
   }
 
   handleNextButtonClick(nextBtn) {
-    nextBtn.addEventListener("click", (e) => {
+    nextBtn.onClick = (e) => {
       if (store.currentQuestionIndex < store.questions.length) {
         const pathname = getAbsolutePath("question-page", {
           category: this.category,
@@ -192,6 +200,6 @@ export class QuestionComponent extends HTMLElement {
         });
         navigateTo(scorePagePath, StateManager.getScorePageState(store));
       }
-    });
+    };
   }
 }

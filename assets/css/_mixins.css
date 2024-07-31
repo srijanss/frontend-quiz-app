@@ -21,5 +21,19 @@
     font-family: var(--font-family);
     font-variation-settings: "wght" var(--font-weight-regular);
     color: var(--foreground-color);
+
+    & h1,
+    & h2,
+    & h3,
+    & p {
+      padding: 0;
+      margin: 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
   }
 }

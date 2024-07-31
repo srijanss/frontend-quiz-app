@@ -15,16 +15,17 @@ export class ScoreComponent extends HTMLElement {
         this.rehydrateStore(historyState);
       }
     }
+    this.shadow = this.attachShadow({ mode: "open" });
     this.render();
     this.handleBackButtonClick();
   }
 
   handleBackButtonClick() {
-    const backButton = this.querySelector(".play-again-btn");
-    backButton.addEventListener("click", (e) => {
+    const backButton = this.shadow.querySelector("button-component#play-again");
+    backButton.onClick = (e) => {
       e.preventDefault();
       navigateTo(getAbsolutePath("home-page"));
-    });
+    };
   }
 
   rehydrateStore(state) {
@@ -32,7 +33,7 @@ export class ScoreComponent extends HTMLElement {
     store.selectedCategory = state.category;
   }
   render() {
-    this.innerHTML = `
+    this.shadow.innerHTML = `
     <style>
       ${css}
     </style>
@@ -46,7 +47,7 @@ export class ScoreComponent extends HTMLElement {
         </div>
         <div class="score-text"><p class="points-scored">${store.score}</p><p class="score-out-of">out of 10</p></div>
       </div>
-      <button class="primary-btn play-again-btn">Play again</button>
+      <button-component data-type="button" id="play-again">Play again</button-component>
     </article>
     `;
   }

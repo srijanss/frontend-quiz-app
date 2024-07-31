@@ -5,9 +5,13 @@ import StateManager from "../../store/state_manager";
 import css from "./CategoryList.css?inline";
 
 export class CategoryListComponent extends HTMLElement {
-  connectedCallback() {
+  constructor() {
+    super();
     store.reset();
     this.categories = store.categories;
+  }
+  connectedCallback() {
+    this.shadow = this.attachShadow({ mode: "open" });
     this.render();
     this.handleCategoryClick();
   }
@@ -27,7 +31,7 @@ export class CategoryListComponent extends HTMLElement {
   }
 
   render() {
-    this.innerHTML = `
+    this.shadow.innerHTML = `
     <style>
       ${css}
     </style>
@@ -50,7 +54,7 @@ export class CategoryListComponent extends HTMLElement {
   }
 
   handleCategoryClick() {
-    this.categoryElements = this.querySelectorAll(".category");
+    this.categoryElements = this.shadow.querySelectorAll(".category");
     this.categoryElements.forEach((item) => {
       item.addEventListener("click", (e) => {
         e.preventDefault();

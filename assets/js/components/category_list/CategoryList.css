@@ -4,6 +4,7 @@
 .quiz-menu {
   width: 100%;
   padding: 32px 24px;
+  font-family: var(--font-family);
 
   & h1 {
     display: flex;
@@ -45,9 +46,11 @@ button.category {
   align-items: center;
 
   & .category-name {
+    font-family: var(--font-family);
     font-variation-settings: "wght" var(--font-weight-medium);
     font-size: 1.125rem;
     font-weight: 500;
     margin-left: 1rem;
+    color: var(--foreground-color);
   }
 }
