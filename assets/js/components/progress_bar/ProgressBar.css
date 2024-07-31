@@ -1,0 +1,41 @@
+@import "../../../css/_mixins.css";
+@mixin host-border-box;
+
+@define-mixin custom-progress-bar {
+  background-color: var(--option-background-color);
+  border-radius: 1rem;
+}
+@define-mixin custom-progress-value {
+  background-color: var(--color-primary);
+  border-radius: 1rem;
+  border: 4px solid var(--option-background-color);
+}
+progress {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1rem;
+  border: none;
+
+  &::-webkit-progress-bar {
+    @mixin custom-progress-bar;
+  }
+  &::-moz-progress-bar {
+    @mixin custom-progress-bar;
+  }
+  &::progress-bar {
+    @mixin custom-progress-bar;
+  }
+
+  &::-webkit-progress-value {
+    @mixin custom-progress-value;
+  }
+  &::-moz-progress-value {
+    @mixin custom-progress-value;
+  }
+  &::progress-value {
+    @mixin custom-progress-value;
+  }
+}

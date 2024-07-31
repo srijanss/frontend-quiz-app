@@ -1,7 +1,8 @@
-import store from "../store/store";
-import { navigateTo, replaceState, navigateByReplace } from "../history";
-import { escapeHtml, randomizeList, getAbsolutePath } from "../utils";
-import StateManager from "../store/state_manager";
+import store from "../../store/store";
+import { navigateTo, replaceState, navigateByReplace } from "../../history";
+import { escapeHtml, randomizeList, getAbsolutePath } from "../../utils";
+import StateManager from "../../store/state_manager";
+import css from "./Question.css?inline";
 
 export class QuestionComponent extends HTMLElement {
   connectedCallback() {
@@ -28,7 +29,6 @@ export class QuestionComponent extends HTMLElement {
       .map(
         (option, index) =>
           `
-        <div>
           <input
             type="radio"
             id="option-${index}"
@@ -36,7 +36,6 @@ export class QuestionComponent extends HTMLElement {
             value="${escapeHtml(option)}"
           />
           <label for="option-${index}">${escapeHtml(option)}</label>
-        </div>
       `
       )
       .join("");
@@ -44,16 +43,25 @@ export class QuestionComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
+    <style>
+      ${css}
+    </style>
+    <article class="question-container">
+      <p>Question ${this.questionID} of ${store.questions.length}</p>
       <h1>${escapeHtml(this.currentQuestion.question)}</h1>
+      <progress-bar data-max="${store.questions.length}" data-value="${
+      this.questionID
+    }"></progress-bar>
       <form id="quiz-form">
         <fieldset>
           <legend>Select anser:</legend>
           ${this.renderOptions()} 
         </fieldset>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit answer" />
       </form>
       <button type="button" id="next-btn" hidden>Next Question</button>
       <p class="error-message" hidden>Please select an answer</p>
+    </article>
     `;
   }
 
