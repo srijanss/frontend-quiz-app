@@ -1,0 +1,86 @@
+@import "../../../css/_mixins.css";
+@mixin host-border-box;
+
+:host {
+  --option-border-color: var(--option-background-color);
+  --option-icon-color: var(--color-light-grey);
+  --option-icon-text-color: var(--color-dark-grey);
+
+  width: 100%;
+  height: 64px;
+  border: none;
+  outline: none;
+  border-radius: 0.75rem; /* 12px */
+  padding: 9px;
+  background-color: var(--option-background-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid var(--option-border-color);
+
+  & .option-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem; /* 4px */
+    background-color: var(--option-icon-color);
+    color: var(--option-icon-text-color);
+    font-variation-settings: "wght" var(--font-weight-medium);
+    font-size: 1.125rem; /* 18px */
+  }
+
+  & .option-value {
+    flex: 1;
+    font-variation-settings: "wght" var(--font-weight-medium);
+    font-size: 1.125rem; /* 18px */
+    font-weight: 500;
+    margin-left: 1rem;
+    text-align: left;
+    line-height: 1.2;
+  }
+
+  & .option-status {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+      max-width: 100%;
+      width: 27px;
+      height: 27px;
+    }
+  }
+}
+
+:host(:state(correct)) {
+  --option-border-color: var(--color-success);
+  --option-icon-color: var(--color-success);
+  --option-icon-text-color: var(--color-white);
+
+  & .correct-icon {
+    display: block;
+  }
+}
+:host(:state(incorrect)) {
+  --option-border-color: var(--color-error);
+  --option-icon-color: var(--color-error);
+  --option-icon-text-color: var(--color-white);
+
+  & .incorrect-icon {
+    display: block;
+  }
+}
+:host(:state(show-correct)) {
+  --option-border-color: var(--option-background-color);
+  --option-icon-color: var(--color-light-grey);
+  --option-icon-text-color: var(--color-dark-grey);
+
+  & .correct-icon {
+    display: block;
+  }
+}

@@ -16,7 +16,7 @@ export class ProgressBarComponent extends HTMLElement {
       <style>
         ${css}
       </style>
-      <label for="quiz-progress">Quiz Progress</label>
+      <label for="quiz-progress" hidden>Quiz Progress</label>
       <progress id="quiz-progress" max="${this.maxValue}" value="${this.currentValue}"></progress>
     `;
   }
