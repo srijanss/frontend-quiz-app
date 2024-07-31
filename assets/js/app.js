@@ -3,7 +3,7 @@ import { ToggleSwitch } from "./components/toggle_switch/ToggleSwitch.js";
 import { HeaderComponent } from "./components/header/Header.js";
 import { CategoryListComponent } from "./components/category_list/CategoryList.js";
 import { ProgressBarComponent } from "./components/progress_bar/ProgressBar.js";
-import { QuestionComponent } from "./components/question/Question.js";
+import { QuestionComponent } from "./components/question_item/Question.js";
 import { ScoreComponent } from "./components/Score.js";
 import { handleHistoryPopState } from "./history.js";
 import render from "./renderer.js";
