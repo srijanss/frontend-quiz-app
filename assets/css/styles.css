@@ -19,11 +19,15 @@
   --font-family: Rubik;
   --font-family-italic: Rubik Italic;
   --font-size: 16px;
+  --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
+  /* Default to light mode */
   --pattern-background-mobile: url("../images/pattern-background-mobile-light.svg");
   --background-color: var(--color-light-grey);
   --foreground-color: var(--color-black);
+  --foreground-color-secondary: var(--color-grey);
+  --option-background-color: var(--color-white);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,6 +39,8 @@
   --pattern-background-mobile: url("../images/pattern-background-mobile-dark.svg");
   --background-color: var(--color-black);
   --foreground-color: var(--color-white);
+  --foreground-color-secondary: var(--color-greyish-blue);
+  --option-background-color: var(--color-dark-grey);
 }
 
 *,
@@ -50,9 +56,9 @@ body {
   font-size: var(--font-size);
   font-variation-settings: "wght" var(--font-weight-regular);
   color: var(--foreground-color);
-  background-color: var(--background-color);
   line-height: 1.5;
   background-image: var(--pattern-background-mobile);
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: var(--background-color);
 }

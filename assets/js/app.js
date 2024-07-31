@@ -1,7 +1,7 @@
 import { CategoryIcon } from "./components/category_icon/CategoryIcon.js";
 import { ToggleSwitch } from "./components/toggle_switch/ToggleSwitch.js";
 import { HeaderComponent } from "./components/header/Header.js";
-import { CategoryListComponent } from "./components/CategoryList.js";
+import { CategoryListComponent } from "./components/category_list/CategoryList.js";
 import { QuestionComponent } from "./components/Question.js";
 import { ScoreComponent } from "./components/Score.js";
 import { handleHistoryPopState } from "./history.js";

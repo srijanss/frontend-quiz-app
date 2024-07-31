@@ -1,7 +1,8 @@
-import store from "../store/store";
-import { navigateTo } from "../history";
-import { getAbsolutePath, randomizeList } from "../utils";
-import StateManager from "../store/state_manager";
+import store from "../../store/store";
+import { navigateTo } from "../../history";
+import { getAbsolutePath, randomizeList } from "../../utils";
+import StateManager from "../../store/state_manager";
+import css from "./CategoryList.css?inline";
 
 export class CategoryListComponent extends HTMLElement {
   connectedCallback() {
@@ -15,21 +16,28 @@ export class CategoryListComponent extends HTMLElement {
     return this.categories
       .map(
         (item) =>
-          `<button class="category" data-title="${item.title}">
-            <category-icon data-category="${item.title}"></category-icon>
-            ${item.title}
-          </button>
-          `
+          `<li>
+            <button class="category" data-title="${item.title}">
+              <category-icon data-category="${item.title}"></category-icon>
+              <span class="category-name">${item.title}</span>
+            </button>
+          </li>`
       )
       .join("");
   }
 
   render() {
     this.innerHTML = `
-    <div>
-      <h1>Categories</h1>
+    <style>
+      ${css}
+    </style>
+    <article class="quiz-menu">
+      <h1><span>Welcome to the</span> <strong>Frontend Quiz!</strong></h1>
+      <p>Pick a subject to get started.</p>
+      <ul class="category-list">
       ${this.renderCategories()}
-    </div>
+      </ul>
+    </article>
     `;
   }
 

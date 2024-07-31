@@ -1,0 +1,53 @@
+@import "../../../css/_mixins.css";
+@mixin host-border-box;
+
+.quiz-menu {
+  width: 100%;
+  padding: 32px 24px;
+
+  & h1 {
+    display: flex;
+    flex-direction: column;
+    font-size: 2.5rem; /* 40px */
+    font-variation-settings: "wght" var(--font-weight-light);
+    line-height: 1.2;
+
+    & strong {
+      font-variation-settings: "wght" var(--font-weight-medium);
+    }
+  }
+  & p {
+    font-family: var(--font-family-italic);
+    font-size: 0.875rem; /* 14px */
+    margin-top: 1rem;
+    color: var(--foreground-color-secondary);
+  }
+}
+ul.category-list {
+  margin-top: 2.5rem; /* 40px */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  & li {
+    width: 100%;
+  }
+}
+button.category {
+  width: 100%;
+  height: 64px;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  padding: 12px;
+  background-color: var(--option-background-color);
+  display: flex;
+  align-items: center;
+
+  & .category-name {
+    font-variation-settings: "wght" var(--font-weight-medium);
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-left: 1rem;
+  }
+}

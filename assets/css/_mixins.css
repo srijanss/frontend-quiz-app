@@ -16,4 +16,10 @@
   :host *::after {
     box-sizing: border-box;
   }
+
+  :host {
+    font-family: var(--font-family);
+    font-variation-settings: "wght" var(--font-weight-regular);
+    color: var(--foreground-color);
+  }
 }
