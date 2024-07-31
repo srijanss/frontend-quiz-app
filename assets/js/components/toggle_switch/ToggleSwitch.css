@@ -30,6 +30,7 @@ input[type="checkbox"] {
   height: 20px;
   background-color: var(--color-primary);
   border-radius: 32px;
+  cursor: pointer;
 
   &::before {
     content: "";
