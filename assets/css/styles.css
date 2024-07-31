@@ -28,7 +28,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --style-mode: "dark-mode";
+    --system-mode: "dark-mode";
   }
 }
 .dark-mode {

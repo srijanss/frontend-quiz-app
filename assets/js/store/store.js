@@ -9,6 +9,11 @@ class Store {
     this._currentQuestionIndex = 0;
     this._score = 0;
     this._observers = [];
+    this._mode = {
+      "light-mode": 0,
+      "dark-mode": 1,
+    };
+    this._currentMode = this._mode["light-mode"];
   }
 
   get baseURL() {
@@ -50,6 +55,18 @@ class Store {
 
   set score(value) {
     this._score = value;
+  }
+
+  get mode() {
+    return this._mode;
+  }
+
+  get currentMode() {
+    return this._currentMode;
+  }
+
+  set currentMode(mode) {
+    this._currentMode = mode;
   }
 
   reset() {

@@ -1,21 +1,16 @@
 import store from "../../store/store";
 import css from "./Header.css?inline";
+import StateManager from "../../store/state_manager";
 
 export class HeaderComponent extends HTMLElement {
   constructor() {
     super();
-    this.root = document.documentElement;
     this.categoryName = "";
-    this.mode = {
-      "light-mode": 0,
-      "dark-mode": 1,
-    };
-    this.currentMode = this.mode["light-mode"];
   }
   connectedCallback() {
     this.shadow = this.attachShadow({ mode: "open" });
     store.subscribe((data) => this.update(data));
-    this.handleSystemDefaultMode();
+    StateManager.handleSystemDefaultMode(store);
     this.render();
   }
   update(data) {
@@ -25,19 +20,6 @@ export class HeaderComponent extends HTMLElement {
 
   getSelectedCategory(categoryName) {
     return categoryName || "";
-  }
-
-  handleSystemDefaultMode() {
-    const currentMode = getComputedStyle(this.root).getPropertyValue(
-      "--style-mode"
-    );
-    if (currentMode) {
-      this.root.classList.add("dark-mode");
-      this.currentMode = this.mode["dark-mode"];
-    } else {
-      this.root.classList.remove("dark-mode");
-      this.currentMode = this.mode["light-mode"];
-    }
   }
 
   render() {
@@ -50,7 +32,7 @@ export class HeaderComponent extends HTMLElement {
         <category-icon></category-icon>
         <span class="category-name">${this.categoryName}</span>
       </div>
-      <toggle-switch data-mode="${this.currentMode}"></toggle-switch>
+      <toggle-switch data-mode="${store.currentMode}"></toggle-switch>
     </header>
     `;
   }

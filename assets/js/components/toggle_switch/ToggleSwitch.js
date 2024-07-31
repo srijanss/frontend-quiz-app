@@ -3,6 +3,8 @@ import MoonDarkIcon from "../../../images/icon-moon-dark.svg";
 import MoonLightIcon from "../../../images/icon-moon-light.svg";
 import SunDarkIcon from "../../../images/icon-sun-dark.svg";
 import SunLightIcon from "../../../images/icon-sun-light.svg";
+import StateManager from "../../store/state_manager";
+import store from "../../store/store";
 
 export class ToggleSwitch extends HTMLElement {
   constructor() {
@@ -19,15 +21,7 @@ export class ToggleSwitch extends HTMLElement {
 
   handleModeChange() {
     const checkbox = this.shadow.getElementById("mode-change");
-    checkbox.addEventListener("change", () => this.toggleMode());
-  }
-
-  toggleMode() {
-    if (this.root.classList.contains("dark-mode")) {
-      this.root.classList.remove("dark-mode");
-    } else {
-      this.root.classList.add("dark-mode");
-    }
+    checkbox.addEventListener("change", () => StateManager.toggleMode(store));
   }
 
   render() {
