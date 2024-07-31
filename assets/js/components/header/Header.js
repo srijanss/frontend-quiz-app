@@ -6,21 +6,21 @@ export class HeaderComponent extends HTMLElement {
     super();
     this.root = document.documentElement;
     this.categoryName = "";
+    this.mode = {
+      "light-mode": 0,
+      "dark-mode": 1,
+    };
+    this.currentMode = this.mode["light-mode"];
   }
   connectedCallback() {
     this.shadow = this.attachShadow({ mode: "open" });
     store.subscribe((data) => this.update(data));
     this.handleSystemDefaultMode();
-    this.handleRender();
+    this.render();
   }
   update(data) {
     this.categoryName = this.getSelectedCategory(data.selectedCategory);
-    this.handleRender();
-  }
-
-  handleRender() {
     this.render();
-    this.handleModeChange();
   }
 
   getSelectedCategory(categoryName) {
@@ -33,22 +33,10 @@ export class HeaderComponent extends HTMLElement {
     );
     if (currentMode) {
       this.root.classList.add("dark-mode");
+      this.currentMode = this.mode["dark-mode"];
     } else {
       this.root.classList.remove("dark-mode");
-    }
-  }
-
-  handleModeChange() {
-    const checkbox = this.shadow.getElementById("mode-change");
-    checkbox.addEventListener("change", () => this.toggleMode());
-  }
-
-  toggleMode() {
-    console.log("toggleMode");
-    if (this.root.classList.contains("dark-mode")) {
-      this.root.classList.remove("dark-mode");
-    } else {
-      this.root.classList.add("dark-mode");
+      this.currentMode = this.mode["light-mode"];
     }
   }
 
@@ -62,7 +50,7 @@ export class HeaderComponent extends HTMLElement {
         <category-icon></category-icon>
         <span class="category-name">${this.categoryName}</span>
       </div>
-      <input id="mode-change" type="checkbox" />
+      <toggle-switch data-mode="${this.currentMode}"></toggle-switch>
     </header>
     `;
   }

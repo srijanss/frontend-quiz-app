@@ -1,0 +1,130 @@
+Problem Statement:
+- Create a frontend quiz app
+- The app should have a 4 category to choose from
+- Each category should have list of questions
+- Each question should have 4 options to choose from
+- Each question should have a correct answer
+- Show one question at a time
+- After answering the question, show another question
+- Show the progress of the quiz
+- At the end show the score
+- The app should have toggle button to switch between dark and light mode
+
+Input, Processes and Output:
+- Inputs: 
+    - Category Radio button
+    - Option Radio button
+    - Submit button 
+    - Dark mode or light mode toggle button 
+- Processes: 
+    - Show the question
+    - Show the options
+    - Check the answer
+    - Show the progress
+    - Show the score
+    - Switch between dark and light mode
+- Output:
+    - Question
+    - Options
+    - Progress
+    - Score
+    - Dark mode or light mode
+
+Use Cases:
+Use case name: Start the quiz 
+Summary: User selects the category and starts the quiz 
+Actor: User
+Precondition: User is on the quiz app
+Main sequence: 
+    1. User selects the category
+    2. System shows the questions
+    3. User selects the option
+    4. User submits the answer
+    5. System shows the next question
+    6. Repeat step 3 to 5 until all questions are answered
+    7. System shows the score
+    8. User ends the quiz
+Alternative sequence:
+  8a. User selects play again
+    1. System shows the categories
+    2. Repeat step 1 to 7
+Postcondition: User ends the quiz
+
+Use case name: Switch between dark and light mode
+Summary: User switches between dark and light mode
+Actor: User
+Precondition: User is on the quiz app
+Main sequence:
+    1. User clicks on the toggle button
+    2. System switches between dark and light mode
+Alternative sequence:
+    2a. User clicks on the toggle button again
+    1. System switches between dark and light mode
+Postcondition: User switches between dark and light mode
+  
+
+Algorithm: (Initialize Datastructures, User Interaction, Scoring, Flow Control)
+**Data Structure**: Define how you will store the questions, options, and correct answers. This could be in an array of objects, for example.
+**User Interaction**: Define how the user will interact with the quiz. This includes selecting an answer, navigating to the next question, and seeing the results.
+**Scoring**: Define how the users answers will be scored. This could be as simple as incrementing a score counter each time the user selects the correct answer.
+**Flow Control**: Define how the app will move from one state to another. This includes loading the next question, showing the results when the quiz is over, and allowing the user to start a new quiz.
+
+Use case name: Start the quiz
+1a. Initialize an array of categories from data.json file
+    categories = data["quizzes"]
+    e.g. categories = [{"title": "Category 1", "icon": "icon1.png", ..}, {"title": "Category 2", "icon": "icon2.png", ..}, ...]
+1b. Initialize a score counter and a current question index
+    score = 0
+    currentQuestionIndex = 0
+2. Show the categories to the user
+3. When the user selects a category, load the questions for that category into an array of question objects 
+    a. Set selectedCategory to title of selected category 
+        selectedCategory = "Category 1"
+    b. fetch questions from categories 
+        category = categories.find(item => item.title === selectedCategory)
+        questions = category.questions
+4. Randomize the order of questions in the array
+    questions = shuffle(questions)
+5a. Set currentQuestion to the first question in the array 
+    currentQuestion = questions[currentQuestionIndex]
+5b. set options to the options of the current question
+    options = question.options
+5c. Randomize the order of options in the array
+    options = shuffle(options)
+6. Display the current question and options to the user
+    displayQuestion = currentQuestion.question
+    displayOptions = options
+7a. When the user selects an option, highlight the answer. 
+    selectedOption = userSelectedOption
+    highlightSelectedOption(selectedOption)
+7b. When the user submits the answer, compare it to the correct answer 
+    onSubmit():
+    correctAnswer = question.correctAnswer
+8. If selected option is the correct answer show the correct icon else show the wrong icon and show the next question button
+    if selectedOption === correctAnswer:
+        score += 1
+        showCorrectIcon()
+    else:
+        showWrongIcon()
+    hideSubmitButton()
+    showNextQuestionButton()
+9. When the user clicks on the next question button, increment the current question index and display the next question
+    currentQuestionIndex += 1
+    currentQuestion = questions[currentQuestionIndex]
+    options = currentQuestion.options
+    options = shuffle(options)
+    displayQuestion = currentQuestion.question
+    displayOptions = options
+    showSubmitButton()
+    hideNextQuestionButton()
+    hideCorrectIcon()
+    hideWrongIcon()
+10. Repeat steps 7-9 until all questions have been answered
+11. Display the final score to the user
+12. Give the user the option to start a new quiz. If they choose to do so, go back to step 1b
+
+Use case name: Switch between dark and light mode
+1. Initialize a variable to store the currentMode (dark or light)
+2. When the user clicks on the toggle button, switch the mode to the opposite of the currentMode
+3. Apply the corresponding styles for the selected mode
+4. If the user clicks on the toggle button again, switch back to the original mode

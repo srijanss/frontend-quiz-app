@@ -1,0 +1,49 @@
+@import "../../../css/_mixins.css";
+@mixin host-border-box;
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-switch-block {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  & .light-mode-icon,
+  & .dark-mode-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+
+    & img {
+      max-width: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+.toggle-switch {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  background-color: var(--color-primary);
+  border-radius: 32px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(50% - 6px);
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-white);
+    border-radius: 50%;
+    transition: left 0.1s ease-out;
+  }
+}
+
+input[type="checkbox"]:checked ~ .toggle-switch::before {
+  left: calc(100% - 16px);
+}

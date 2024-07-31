@@ -2,7 +2,6 @@
 @mixin host-border-box;
 
 header {
-  border: 1px solid red;
   height: 72px;
   display: flex;
   justify-content: space-between;
