@@ -22,7 +22,7 @@ export class CategoryListComponent extends HTMLElement {
         (item) =>
           `<li>
             <button class="category" data-title="${item.title}">
-              <category-icon data-category="${item.title}"></category-icon>
+              <category-icon data-category="${item.title}" style="--ri: 2;"></category-icon>
               <span class="category-name">${item.title}</span>
             </button>
           </li>`

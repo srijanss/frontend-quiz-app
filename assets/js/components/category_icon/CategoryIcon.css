@@ -3,18 +3,20 @@
 
 :host {
   --category-icon-size: 2.5rem; /* 40px */
+  --category-icon-border-radius: calc(4px + var(--ri, 0) * 1px);
 }
 
 @mixin media-query-tablet {
   :host {
     --category-icon-size: 3.5rem; /* 56px */
+    --category-icon-border-radius: calc(8px + var(--ri, 0) * 2px);
   }
 }
 
 .category-icon-wrapper {
   width: var(--category-icon-size);
   height: var(--category-icon-size);
-  border-radius: 4px;
+  border-radius: var(--category-icon-border-radius);
   display: flex;
   align-items: center;
   justify-content: center;
