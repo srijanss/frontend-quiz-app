@@ -64,20 +64,20 @@ export class QuestionComponent extends HTMLElement {
       <progress-bar data-max="${store.questions.length}" data-value="${
       this.questionID
     }"></progress-bar>
-      <form id="quiz-form" name="quiz-form">
+      <form id="quiz-form" name="quiz-form" novalidate>
         <fieldset>
           <legend>Select anser:</legend>
           ${this.renderOptions()} 
         </fieldset>
         <button-component id="submit-btn" data-type="submit">Submit answer</button-component>
-      </form>
-      <button-component id="next-btn" data-type="button" hidden>Next Question</button-component>
-      <div class="error-message-block hidden">
-        <div class="error-icon-wrapper">
-          <img src="${ErrorIcon}" alt="Error Icon" />
+        <button-component id="next-btn" data-type="button" hidden>Next Question</button-component>
+        <div class="error-message-block hidden">
+          <div class="error-icon-wrapper">
+            <img src="${ErrorIcon}" alt="Error Icon" />
+          </div>
+          <p class="error-message">Please select an answer</p>
         </div>
-        <p class="error-message">Please select an answer</p>
-      </div>
+      </form>
     </article>
     `;
   }
@@ -165,6 +165,9 @@ export class QuestionComponent extends HTMLElement {
   }
 
   handleFormSubmit(quizForm, errorMessageBlockEl) {
+    quizForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
     const nextBtn = this.shadow.querySelector("button-component#next-btn");
     const submitBtn = this.shadow.querySelector("button-component#submit-btn");
     submitBtn.onClick = (e) => {

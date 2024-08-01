@@ -8,6 +8,7 @@
   --item-height: 64px;
   --item-border-width: 3px;
   --item-border-radius: 0.75rem; /* 12px */
+  --item-padding: 0.75rem; /* 12px */
   --item-icon-size: 40px;
   --item-icon-border-radius: 6px;
   --item-text-font-size: 1.125rem; /* 18px */
@@ -20,7 +21,9 @@
   border: none;
   outline: none;
   border-radius: var(--item-border-radius);
-  padding: calc(12px - var(--item-border-width)); /* 12px - 3px = 9px */
+  padding: calc(
+    var(--item-padding) - var(--item-border-width)
+  ); /* 12px - 3px = 9px */
   background-color: var(--option-background-color);
   display: flex;
   justify-content: space-between;
@@ -103,7 +106,15 @@
     --item-icon-border-radius: 12px;
     --item-text-font-size: 1.75rem; /* 28px */
     --item-icon-text-gap: 2rem;
-    --item-status-size: 2.5rem;
+    --item-status-size: 2.5rem; /* 40px */
     --item-status-icon-size: 33px;
+  }
+}
+
+@mixin media-query-desktop {
+  :host {
+    --item-height: 92px;
+    --item-icon-border-radius: 0.5rem; /* 8px */
+    --item-padding: 1.125rem; /* 18px */
   }
 }
