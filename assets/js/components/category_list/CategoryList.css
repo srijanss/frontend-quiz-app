@@ -47,6 +47,7 @@
     background-color: var(--option-background-color);
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     & .category-name {
       font-family: var(--font-family);
