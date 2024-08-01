@@ -3,6 +3,7 @@
 
 .score-container {
   width: 100%;
+  display: grid;
 
   & h1,
   & h2 {
@@ -82,6 +83,34 @@
       & .score-out-of {
         font-size: 1.5rem; /* 24px */
       }
+    }
+  }
+
+  @mixin media-query-desktop {
+    grid-template-areas:
+      "header1 score-block"
+      "header2 score-block"
+      "empty score-block"
+      "empty button-block";
+
+    & h1 {
+      grid-area: header1;
+    }
+    & h2 {
+      grid-area: header2;
+    }
+
+    & .score-block {
+      grid-area: score-block;
+      margin-top: 0;
+      width: 564px;
+      justify-self: end;
+    }
+
+    & button-component {
+      grid-area: button-block;
+      width: 564px;
+      justify-self: end;
     }
   }
 }
