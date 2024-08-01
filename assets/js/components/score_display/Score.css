@@ -10,11 +10,12 @@
     flex-direction: column;
     font-size: 2.5rem; /* 40px */
     font-variation-settings: "wght" var(--font-weight-light);
-    line-height: 1.2;
+    line-height: 1;
   }
 
   & h2 {
     font-variation-settings: "wght" var(--font-weight-medium);
+    margin-top: 8px;
   }
 
   & .score-block {
@@ -49,8 +50,38 @@
     }
     & .score-out-of {
       font-size: 1.125rem; /* 18px */
+      line-heigth: 1.5;
       text-align: center;
       color: var(--foreground-color-secondary);
+    }
+  }
+
+  @mixin media-query-tablet {
+    & h1,
+    & h2 {
+      font-size: 4rem; /* 64px */
+    }
+
+    & .score-block {
+      margin-top: 4rem; /* 64px */
+      margin-bottom: 2rem; /* 32px */
+      padding: 3rem; /* 48px */
+
+      & .category-block {
+        & .category-name {
+          font-size: 1.75rem; /* 28px */
+        }
+      }
+
+      & .points-scored {
+        font-size: 9rem; /* 144px */
+        margin-top: 2.5rem; /* 40px */
+        margin-bottom: 1rem; /* 16px */
+      }
+
+      & .score-out-of {
+        font-size: 1.5rem; /* 24px */
+      }
     }
   }
 }
