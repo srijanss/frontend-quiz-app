@@ -51,7 +51,7 @@
     }
     & .score-out-of {
       font-size: 1.125rem; /* 18px */
-      line-heigth: 1.5;
+      line-height: 1.5;
       text-align: center;
       color: var(--foreground-color-secondary);
     }
