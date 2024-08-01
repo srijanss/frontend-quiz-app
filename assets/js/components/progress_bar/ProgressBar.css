@@ -18,12 +18,13 @@ progress {
   width: 100%;
   height: 1rem;
   border: none;
+  @mixin custom-progress-bar;
 
   &::-webkit-progress-bar {
     @mixin custom-progress-bar;
   }
   &::-moz-progress-bar {
-    @mixin custom-progress-bar;
+    @mixin custom-progress-value;
   }
   &::progress-bar {
     @mixin custom-progress-bar;
@@ -32,9 +33,7 @@ progress {
   &::-webkit-progress-value {
     @mixin custom-progress-value;
   }
-  &::-moz-progress-value {
-    @mixin custom-progress-value;
-  }
+
   &::progress-value {
     @mixin custom-progress-value;
   }
