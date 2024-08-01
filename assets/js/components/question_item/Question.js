@@ -155,11 +155,21 @@ export class QuestionComponent extends HTMLElement {
     this.disableForm(quizForm);
   }
 
+  highlightSelectedOption(radioInput) {
+    const optionItems = this.shadow.querySelectorAll("option-item");
+    Array.from(optionItems).forEach((item) => {
+      item.removeSelected();
+    });
+    const optionItem = radioInput.nextElementSibling;
+    optionItem.setSelected();
+  }
+
   handleOptionClick(quizForm, errorMessageBlockEl) {
     const radioInputs = quizForm.querySelectorAll("input[type=radio]");
     Array.from(radioInputs).forEach((radioInput) => {
       radioInput.addEventListener("click", (e) => {
         errorMessageBlockEl.classList.add("hidden");
+        this.highlightSelectedOption(radioInput);
       });
     });
   }

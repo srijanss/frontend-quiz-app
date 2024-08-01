@@ -40,8 +40,6 @@
 .option-item {
   width: 100%;
   min-height: var(--item-height);
-  border: none;
-  outline: none;
   border-radius: var(--item-border-radius);
   padding: calc(
     var(--item-padding) - var(--item-border-width)
@@ -95,6 +93,16 @@
       height: var(--item-status-icon-size);
     }
   }
+
+  &.selected {
+    border: var(--item-border-width) solid var(--color-primary);
+
+    & .option-icon-wrapper,
+    &:hover > .option-icon-wrapper {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+    }
+  }
 }
 
 :host(:state(correct)) {
@@ -102,7 +110,13 @@
   --option-icon-color: var(--color-success);
   --option-icon-text-color: var(--color-white);
 
-  & .option-item:hover > .option-icon-wrapper {
+  & .option-item.selected {
+    border: var(--item-border-width) solid var(--color-success);
+  }
+
+  & .option-item:hover > .option-icon-wrapper,
+  & .option-item.selected > .option-icon-wrapper,
+  & .option-item.selected:hover > .option-icon-wrapper {
     background-color: var(--color-success);
     color: var(--option-icon-text-color);
   }
@@ -116,7 +130,13 @@
   --option-icon-color: var(--color-error);
   --option-icon-text-color: var(--color-white);
 
-  & .option-item:hover > .option-icon-wrapper {
+  & .option-item.selected {
+    border: var(--item-border-width) solid var(--color-error);
+  }
+
+  & .option-item:hover > .option-icon-wrapper,
+  & .option-item.selected > .option-icon-wrapper,
+  & .option-item.selected:hover > .option-icon-wrapper {
     background-color: var(--color-error);
     color: var(--option-icon-text-color);
   }

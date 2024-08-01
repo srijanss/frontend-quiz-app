@@ -40,11 +40,11 @@
     & input[type="radio"] {
       display: none;
     }
-    & input[type="radio"]:checked ~ option-item {
+    /* & input[type="radio"]:checked ~ option-item {
       --option-border-color: var(--color-primary);
       --option-icon-color: var(--color-primary);
       --option-icon-text-color: var(--color-white);
-    }
+    } */
 
     & .error-message-block {
       width: 250px;
