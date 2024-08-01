@@ -50,6 +50,13 @@
   align-items: center;
   border: var(--item-border-width) solid var(--option-border-color);
   cursor: pointer;
+  outline: none;
+  &.focused {
+    box-shadow: 0 0 0 2px var(--color-white), 0 0 0 4px var(--outline-color);
+  }
+  &.selected.focused {
+    box-shadow: none;
+  }
 
   &:hover > .option-icon-wrapper {
     background-color: var(--color-a11y-faded);
@@ -112,6 +119,11 @@
 
   & .option-item.selected {
     border: var(--item-border-width) solid var(--color-success);
+    box-shadow: none;
+  }
+
+  & .option-item.focused {
+    box-shadow: none;
   }
 
   & .option-item:hover > .option-icon-wrapper,
@@ -132,6 +144,10 @@
 
   & .option-item.selected {
     border: var(--item-border-width) solid var(--color-error);
+    box-shadow: none;
+  }
+  & .option-item.focused {
+    box-shadow: none;
   }
 
   & .option-item:hover > .option-icon-wrapper,

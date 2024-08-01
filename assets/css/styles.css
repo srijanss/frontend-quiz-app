@@ -31,6 +31,7 @@
   --foreground-color-secondary: var(--color-grey);
   --option-background-color: var(--color-white);
   --error-message-color: var(--color-error);
+  --outline-color: var(--color-primary);
 }
 
 @media (prefers-color-scheme: dark) {

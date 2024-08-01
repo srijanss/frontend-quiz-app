@@ -28,7 +28,7 @@ export class QuestionComponent extends HTMLElement {
       this.errorMessageBlockEl = this.shadow.querySelector(
         ".error-message-block"
       );
-      this.handleOptionClick(this.quizForm, this.errorMessageBlockEl);
+      this.handleOptionEvents(this.quizForm, this.errorMessageBlockEl);
       this.handleFormSubmit(this.quizForm, this.errorMessageBlockEl);
     } else {
       navigateTo(getAbsolutePath("home-page"));
@@ -164,12 +164,24 @@ export class QuestionComponent extends HTMLElement {
     optionItem.setSelected();
   }
 
-  handleOptionClick(quizForm, errorMessageBlockEl) {
+  focusSelectedOption(radioInput) {
+    const optionItems = this.shadow.querySelectorAll("option-item");
+    Array.from(optionItems).forEach((item) => {
+      item.removeFocus();
+    });
+    const optionItem = radioInput.nextElementSibling;
+    optionItem.setFocus();
+  }
+
+  handleOptionEvents(quizForm, errorMessageBlockEl) {
     const radioInputs = quizForm.querySelectorAll("input[type=radio]");
     Array.from(radioInputs).forEach((radioInput) => {
       radioInput.addEventListener("click", (e) => {
         errorMessageBlockEl.classList.add("hidden");
         this.highlightSelectedOption(radioInput);
+      });
+      radioInput.addEventListener("focus", (e) => {
+        this.focusSelectedOption(radioInput);
       });
     });
   }
@@ -192,6 +204,7 @@ export class QuestionComponent extends HTMLElement {
       store.currentQuestionIndex += 1;
       submitBtn.hidden = true;
       nextBtn.hidden = false;
+      nextBtn.setFocus();
       this.handleNextButtonClick(nextBtn);
     };
     return;

@@ -19,8 +19,14 @@
   }
 }
 
+label {
+  position: relative;
+}
 input[type="checkbox"] {
-  display: none;
+  /* display: none; */
+  position: absolute;
+  width: 0;
+  height: 0;
 }
 
 .toggle-switch-block {
@@ -67,4 +73,7 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked ~ .toggle-switch::before {
   left: calc(100% - (var(--toggle-switch-handle-size) + var(--padding)));
+}
+input[type="checkbox"]:focus ~ .toggle-switch {
+  box-shadow: 0 0 0 2px var(--color-white), 0 0 0 4px var(--outline-color);
 }

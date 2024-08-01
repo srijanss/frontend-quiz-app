@@ -29,6 +29,9 @@ button {
   font-size: var(--button-text-font-size);
   text-transform: capitalize;
   cursor: pointer;
+  &:focus {
+    box-shadow: 0 0 0 2px var(--color-white), 0 0 0 4px var(--outline-color);
+  }
 
   &:hover {
     background-color: var(--color-primary);

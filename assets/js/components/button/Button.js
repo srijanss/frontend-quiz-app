@@ -11,6 +11,11 @@ export class ButtonComponent extends HTMLElement {
     this._onClick = callback;
   }
 
+  setFocus() {
+    const button = this.shadow.querySelector("button");
+    button.focus();
+  }
+
   connectedCallback() {
     this.shadow = this.attachShadow({ mode: "open" });
     this.render();

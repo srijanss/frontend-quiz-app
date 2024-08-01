@@ -55,6 +55,15 @@ export class OptionItemComponent extends HTMLElement {
     optionItem.classList.remove("selected");
   }
 
+  setFocus() {
+    const optionItem = this.shadow.querySelector(".option-item");
+    optionItem.classList.add("focused");
+  }
+  removeFocus() {
+    const optionItem = this.shadow.querySelector(".option-item");
+    optionItem.classList.remove("focused");
+  }
+
   connectedCallback() {
     this.shadow = this.attachShadow({ mode: "open" });
     this.render();

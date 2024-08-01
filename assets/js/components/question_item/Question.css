@@ -35,16 +35,23 @@
       & legend {
         display: none;
       }
-    }
 
-    & input[type="radio"] {
-      display: none;
-    }
-    /* & input[type="radio"]:checked ~ option-item {
+      & label {
+        position: relative;
+      }
+
+      & input[type="radio"] {
+        /* display: none; */
+        position: absolute;
+        width: 0;
+        height: 0;
+      }
+      /* & input[type="radio"]:checked ~ option-item {
       --option-border-color: var(--color-primary);
       --option-icon-color: var(--color-primary);
       --option-icon-text-color: var(--color-white);
     } */
+    }
 
     & .error-message-block {
       width: 250px;
