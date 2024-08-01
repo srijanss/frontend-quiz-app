@@ -64,15 +64,16 @@ export class OptionItemComponent extends HTMLElement {
       <style>
         ${css}
       </style>
-      <div class="option-icon-wrapper">
-        ${this.getOptionLabel(this.optionID)}
+      <div class="option-item">
+        <div class="option-icon-wrapper">
+          ${this.getOptionLabel(this.optionID)}
+        </div>
+        <p class="option-value">${escapeHtml(this.optionValue)}</p>
+        <div class="option-status">
+          <img src="${CorrectIcon}" alt="Correct Icon" class="correct-icon" hidden />
+          <img src="${InCorrectIcon}" alt="InCorrect Icon" class="incorrect-icon" hidden />
+        </div>
       </div>
-      <p class="option-value">${escapeHtml(this.optionValue)}</p>
-      <div class="option-status">
-        <img src="${CorrectIcon}" alt="Correct Icon" class="correct-icon" hidden />
-        <img src="${InCorrectIcon}" alt="InCorrect Icon" class="incorrect-icon" hidden />
-      </div>
-
     `;
   }
 }

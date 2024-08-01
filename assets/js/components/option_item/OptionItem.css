@@ -15,7 +15,29 @@
   --item-icon-text-gap: 1rem;
   --item-status-size: 2rem;
   --item-status-icon-size: 27px;
+}
+@mixin media-query-tablet {
+  :host {
+    --item-height: 80px;
+    --item-icon-size: 56px;
+    --item-border-radius: 1.5rem; /* 24px */
+    --item-icon-border-radius: 12px;
+    --item-text-font-size: 1.75rem; /* 28px */
+    --item-icon-text-gap: 2rem;
+    --item-status-size: 2.5rem; /* 40px */
+    --item-status-icon-size: 33px;
+  }
+}
 
+@mixin media-query-desktop {
+  :host {
+    --item-height: 92px;
+    --item-icon-border-radius: 0.5rem; /* 8px */
+    --item-padding: 1.125rem; /* 18px */
+  }
+}
+
+.option-item {
   width: 100%;
   min-height: var(--item-height);
   border: none;
@@ -30,6 +52,11 @@
   align-items: center;
   border: var(--item-border-width) solid var(--option-border-color);
   cursor: pointer;
+
+  &:hover > .option-icon-wrapper {
+    background-color: var(--color-a11y-faded);
+    color: var(--color-primary);
+  }
 
   & .option-icon-wrapper {
     width: var(--item-icon-size);
@@ -75,6 +102,11 @@
   --option-icon-color: var(--color-success);
   --option-icon-text-color: var(--color-white);
 
+  & .option-item:hover > .option-icon-wrapper {
+    background-color: var(--color-success);
+    color: var(--option-icon-text-color);
+  }
+
   & .correct-icon {
     display: block;
   }
@@ -83,6 +115,11 @@
   --option-border-color: var(--color-error);
   --option-icon-color: var(--color-error);
   --option-icon-text-color: var(--color-white);
+
+  & .option-item:hover > .option-icon-wrapper {
+    background-color: var(--color-error);
+    color: var(--option-icon-text-color);
+  }
 
   & .incorrect-icon {
     display: block;
@@ -95,26 +132,5 @@
 
   & .correct-icon {
     display: block;
-  }
-}
-
-@mixin media-query-tablet {
-  :host {
-    --item-height: 80px;
-    --item-icon-size: 56px;
-    --item-border-radius: 1.5rem; /* 24px */
-    --item-icon-border-radius: 12px;
-    --item-text-font-size: 1.75rem; /* 28px */
-    --item-icon-text-gap: 2rem;
-    --item-status-size: 2.5rem; /* 40px */
-    --item-status-icon-size: 33px;
-  }
-}
-
-@mixin media-query-desktop {
-  :host {
-    --item-height: 92px;
-    --item-icon-border-radius: 0.5rem; /* 8px */
-    --item-padding: 1.125rem; /* 18px */
   }
 }
