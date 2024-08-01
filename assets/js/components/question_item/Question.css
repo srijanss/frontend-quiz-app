@@ -6,6 +6,7 @@
   & p {
     font-family: var(--font-family-italic);
     font-size: 0.875rem; /* 14px */
+    line-height: 1.5;
     color: var(--foreground-color-secondary);
   }
   & h1 {
@@ -17,10 +18,22 @@
     margin-top: 0.75rem; /* 12px */
     margin-bottom: 1.5rem; /* 24px */
   }
+
+  @mixin media-query-tablet {
+    & p {
+      font-size: 1.25rem; /* 20px */
+    }
+    & h1 {
+      font-size: 2.25rem; /* 36px */
+    }
+  }
 }
 
 #quiz-form {
   margin-top: 2.5rem; /* 40px */
+  @mixin media-query-tablet {
+    margin-top: 4rem; /* 64px */
+  }
 }
 
 fieldset {
@@ -34,6 +47,11 @@ fieldset {
 
   & legend {
     display: none;
+  }
+
+  @mixin media-query-tablet {
+    gap: 1.5rem; /* 24px */
+    margin-bottom: 2rem; /* 32px */
   }
 }
 
@@ -78,5 +96,24 @@ input[type="radio"]:checked ~ option-item {
     font-variation-settings: "wght" var(--font-weight-regular);
     font-size: 1.125rem; /* 18px */
     color: var(--color-error);
+  }
+
+  @mixin media-query-tablet {
+    width: 316px;
+    margin-top: 2.125rem; /* 34px */
+
+    & .error-icon-wrapper {
+      width: 2.5rem;
+      height: 2.5rem;
+
+      & img {
+        width: 33px;
+        height: 33px;
+      }
+    }
+
+    & .error-message {
+      font-size: 1.5rem; /* 24px */
+    }
   }
 }
