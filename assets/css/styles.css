@@ -30,6 +30,7 @@
   --foreground-color: var(--color-black);
   --foreground-color-secondary: var(--color-grey);
   --option-background-color: var(--color-white);
+  --error-message-color: var(--color-error);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,6 +46,7 @@
   --foreground-color: var(--color-white);
   --foreground-color-secondary: var(--color-greyish-blue);
   --option-background-color: var(--color-dark-grey);
+  --error-message-color: var(--color-white);
 }
 
 *,
