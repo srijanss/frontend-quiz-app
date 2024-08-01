@@ -69,9 +69,17 @@ body {
     --background-image-width: 438px;
     --background-image-height: 531px;
 
-    padding: 2.5rem 4rem;
+    padding: 2.5rem 4rem; /* 40px 64px */
     background-image: var(--pattern-background-tablet);
     background-size: var(--background-image-width)
       var(--background-image-height);
+  }
+}
+
+main {
+  padding: 2rem 1.5rem; /* 32px 24px */
+  @mixin media-query-tablet {
+    padding: 0;
+    padding-top: 3.0625rem; /* 49px */
   }
 }

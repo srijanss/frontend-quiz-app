@@ -3,7 +3,6 @@
 
 .quiz-menu {
   width: 100%;
-  padding: 32px 24px;
   font-family: var(--font-family);
 
   & h1 {
