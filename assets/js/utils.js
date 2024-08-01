@@ -23,7 +23,7 @@ export function getAbsolutePath(pathname, params) {
     return params[key];
   });
   if (path === "/") {
-    return store.baseURL;
+    return `${store.baseURL}/`;
   }
-  return `${store.baseURL}${path}`;
+  return `${store.baseURL}/${path}`;
 }

@@ -1,3 +1,3 @@
 export default {
-  base: "/frontend-quiz-app/",
+  base: "/frontend-quiz-app",
 };
