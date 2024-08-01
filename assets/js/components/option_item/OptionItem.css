@@ -17,7 +17,7 @@
   --item-status-icon-size: 27px;
 
   width: 100%;
-  height: var(--item-height);
+  min-height: var(--item-height);
   border: none;
   outline: none;
   border-radius: var(--item-border-radius);
