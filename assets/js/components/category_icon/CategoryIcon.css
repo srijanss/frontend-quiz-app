@@ -12,6 +12,11 @@
     --category-icon-border-radius: calc(8px + var(--ri, 0) * 2px);
   }
 }
+@mixin media-query-desktop {
+  :host {
+    --category-icon-border-radius: 8px;
+  }
+}
 
 .category-icon-wrapper {
   width: var(--category-icon-size);

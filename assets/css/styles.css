@@ -25,6 +25,7 @@
   /* Default to light mode */
   --pattern-background-mobile: url("../images/pattern-background-mobile-light.svg");
   --pattern-background-tablet: url("../images/pattern-background-tablet-light.svg");
+  --pattern-background-desktop: url("../images/pattern-background-desktop-light.svg");
   --background-color: var(--color-light-grey);
   --foreground-color: var(--color-black);
   --foreground-color-secondary: var(--color-grey);
@@ -39,6 +40,7 @@
 .dark-mode {
   --pattern-background-mobile: url("../images/pattern-background-mobile-dark.svg");
   --pattern-background-tablet: url("../images/pattern-background-tablet-dark.svg");
+  --pattern-background-desktop: url("../images/pattern-background-desktop-dark.svg");
   --background-color: var(--color-black);
   --foreground-color: var(--color-white);
   --foreground-color-secondary: var(--color-greyish-blue);
@@ -74,12 +76,25 @@ body {
     background-size: var(--background-image-width)
       var(--background-image-height);
   }
+
+  @mixin media-query-desktop {
+    padding: 0;
+    padding-top: 5.1875rem; /* 83px */
+    background-image: var(--pattern-background-desktop);
+    background-size: cover;
+  }
 }
 
 main {
+  width: 100%;
   padding: 2rem 1.5rem; /* 32px 24px */
   @mixin media-query-tablet {
     padding: 0;
     padding-top: 3.0625rem; /* 49px */
+  }
+  @mixin media-query-desktop {
+    width: 1160px;
+    margin: 0 auto;
+    padding-top: 5.3125rem; /* 85px */
   }
 }

@@ -4,6 +4,7 @@
 :host {
   --header-height: 4.5rem; /* 72px */
   --header-width: 100%;
+  --header-margin: 0;
   --header-padding: 1rem 1.5rem;
   --category-font-size: 1.125rem;
   --category-icon-font-gap: 1rem;
@@ -17,7 +18,12 @@
     --category-icon-font-gap: 1.5rem;
   }
 }
-
+@mixin media-query-desktop {
+  :host {
+    --header-width: 1160px;
+    --header-margin: 0 auto;
+  }
+}
 header {
   width: var(--header-width);
   height: var(--header-height);
@@ -25,6 +31,7 @@ header {
   justify-content: space-between;
   padding: var(--header-padding);
   align-items: center;
+  margin: var(--header-margin);
 }
 
 .category-block {
