@@ -22,6 +22,10 @@ export class ToggleSwitch extends HTMLElement {
   handleModeChange() {
     const checkbox = this.shadow.getElementById("mode-change");
     checkbox.addEventListener("change", () => StateManager.toggleMode(store));
+    checkbox.addEventListener("click", (e) => {
+      // e.preventDefault();
+      checkbox.blur();
+    });
   }
 
   render() {

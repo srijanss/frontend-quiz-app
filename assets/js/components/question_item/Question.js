@@ -186,6 +186,19 @@ export class QuestionComponent extends HTMLElement {
     });
   }
 
+  _handleSubmit(quizForm, errorMessageBlockEl, submitBtn, nextBtn) {
+    const formData = new FormData(quizForm);
+    const data = Object.fromEntries(formData.entries());
+    if (!this.validateForm(data, errorMessageBlockEl)) {
+      return;
+    }
+    errorMessageBlockEl.classList.add("hidden");
+    this.checkAnswer(quizForm, data);
+    store.currentQuestionIndex += 1;
+    submitBtn.hidden = true;
+    nextBtn.hidden = false;
+  }
+
   handleFormSubmit(quizForm, errorMessageBlockEl) {
     quizForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -194,38 +207,41 @@ export class QuestionComponent extends HTMLElement {
     const submitBtn = this.shadow.querySelector("button-component#submit-btn");
     submitBtn.onClick = (e) => {
       e.preventDefault();
-      const formData = new FormData(quizForm);
-      const data = Object.fromEntries(formData.entries());
-      if (!this.validateForm(data, errorMessageBlockEl)) {
-        return;
-      }
-      errorMessageBlockEl.classList.add("hidden");
-      this.checkAnswer(quizForm, data);
-      store.currentQuestionIndex += 1;
-      submitBtn.hidden = true;
-      nextBtn.hidden = false;
+      this._handleSubmit(quizForm, errorMessageBlockEl, submitBtn, nextBtn);
+      this.handleNextButtonClick(nextBtn);
+    };
+    submitBtn.onKeyDown = (e) => {
+      e.preventDefault();
+      this._handleSubmit(quizForm, errorMessageBlockEl, submitBtn, nextBtn);
       nextBtn.setFocus();
       this.handleNextButtonClick(nextBtn);
     };
     return;
   }
 
+  _showNextQuestion(nextBtn) {
+    if (store.currentQuestionIndex < store.questions.length) {
+      const pathname = getAbsolutePath("question-page", {
+        category: this.category,
+        id: store.currentQuestionIndex + 1,
+      });
+      const newState = StateManager.getQuestionPageState(store);
+      navigateByReplace(pathname, newState);
+    } else {
+      replaceState(window.location.pathname, null);
+      const scorePagePath = getAbsolutePath("score-page", {
+        category: this.category,
+      });
+      navigateTo(scorePagePath, StateManager.getScorePageState(store));
+    }
+  }
+
   handleNextButtonClick(nextBtn) {
     nextBtn.onClick = (e) => {
-      if (store.currentQuestionIndex < store.questions.length) {
-        const pathname = getAbsolutePath("question-page", {
-          category: this.category,
-          id: store.currentQuestionIndex + 1,
-        });
-        const newState = StateManager.getQuestionPageState(store);
-        navigateByReplace(pathname, newState);
-      } else {
-        replaceState(window.location.pathname, null);
-        const scorePagePath = getAbsolutePath("score-page", {
-          category: this.category,
-        });
-        navigateTo(scorePagePath, StateManager.getScorePageState(store));
-      }
+      this._showNextQuestion(nextBtn);
+    };
+    nextBtn.onKeyDown = (e) => {
+      this._showNextQuestion(nextBtn);
     };
   }
 }

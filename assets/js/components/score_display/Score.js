@@ -26,6 +26,10 @@ export class ScoreComponent extends HTMLElement {
       e.preventDefault();
       navigateTo(getAbsolutePath("home-page"));
     };
+    backButton.onKeyDown = (e) => {
+      e.preventDefault();
+      navigateTo(getAbsolutePath("home-page"));
+    };
   }
 
   rehydrateStore(state) {

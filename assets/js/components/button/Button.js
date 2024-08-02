@@ -11,6 +11,10 @@ export class ButtonComponent extends HTMLElement {
     this._onClick = callback;
   }
 
+  set onKeyDown(callback) {
+    this._onKeyDown = callback;
+  }
+
   setFocus() {
     const button = this.shadow.querySelector("button");
     button.focus();
@@ -20,14 +24,24 @@ export class ButtonComponent extends HTMLElement {
     this.shadow = this.attachShadow({ mode: "open" });
     this.render();
     this.handleButtonClick();
+    this.handleKeyDown();
   }
 
   handleButtonClick() {
     const button = this.shadow.querySelector("button");
-    button.addEventListener("click", (e) => {
+    button.addEventListener("mousedown", (e) => {
       e.preventDefault();
       if (this._onClick) {
         this._onClick(e);
+      }
+    });
+  }
+
+  handleKeyDown() {
+    const button = this.shadow.querySelector("button");
+    button.addEventListener("keydown", (e) => {
+      if (this._onKeyDown && e.code === "Space") {
+        this._onKeyDown(e);
       }
     });
   }

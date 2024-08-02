@@ -53,19 +53,29 @@ export class CategoryListComponent extends HTMLElement {
     return randomizeList(questionsList);
   }
 
+  _handleCategorySelection(item) {
+    store.selectedCategory = item.dataset.title;
+    store.questions = this.getQuestionsByCategory(store.selectedCategory);
+    const pathname = getAbsolutePath("question-page", {
+      category: store.selectedCategory,
+      id: store.currentQuestionIndex + 1,
+    });
+    const state = StateManager.getQuestionPageState(store);
+    navigateTo(pathname, state);
+  }
+
   handleCategoryClick() {
     this.categoryElements = this.shadow.querySelectorAll(".category");
     this.categoryElements.forEach((item) => {
-      item.addEventListener("click", (e) => {
+      item.addEventListener("mousedown", (e) => {
         e.preventDefault();
-        store.selectedCategory = item.dataset.title;
-        store.questions = this.getQuestionsByCategory(store.selectedCategory);
-        const pathname = getAbsolutePath("question-page", {
-          category: store.selectedCategory,
-          id: store.currentQuestionIndex + 1,
-        });
-        const state = StateManager.getQuestionPageState(store);
-        navigateTo(pathname, state);
+        this._handleCategorySelection(e.currentTarget);
+      });
+
+      item.addEventListener("keydown", (e) => {
+        if (e.code === "Space") {
+          this._handleCategorySelection(e.currentTarget);
+        }
       });
     });
   }
