@@ -69,7 +69,9 @@ export class CategoryIcon extends HTMLElement {
     <div class="category-icon-wrapper ${this.getCategoryClass(
       this.category.toLowerCase()
     )}">
-      <img src="${this.categoryIcon}" alt="${this.category}" />
+      <img src="${this.categoryIcon}" alt="Category icon for ${
+      this.category
+    }" />
     </div>
     `;
   }

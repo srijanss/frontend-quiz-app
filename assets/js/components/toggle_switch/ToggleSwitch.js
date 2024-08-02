@@ -39,7 +39,7 @@ export class ToggleSwitch extends HTMLElement {
             this.mode ? SunDarkIcon : SunLightIcon
           }" alt="Light Icon" />
         </div>
-        <label for="mode-change">
+        <label for="mode-change">Mode toggle
           <input type="checkbox" id="mode-change" ${
             this.mode ? "checked" : ""
           }/>
