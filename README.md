@@ -35,8 +35,8 @@ Users should be able to:
 
 ### Screenshot
 
-![](./assets/images/home-page-light-mode.png)
 ![](./assets/images/home-page-dark-mode.png)
+![](./assets/images/home-page-light-mode.png)
 ![](./assets/images/question-page-ligth-mode.png)
 ![](./assets/images/score-page-light-mode.png)
 
